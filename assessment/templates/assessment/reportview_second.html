@@ -1,0 +1,266 @@
+
+
+{% extends 'welcome1.html' %}
+{% block sectionTitle %}{% endblock %}
+{% load humanize %}
+{% block content %}
+
+
+    <table width="100%" class="table  table-bordered " id="dataTables-example">
+        <tr>
+            <td style="text-align:center;color:black;font-size:14px;background-color:#ccccc0">
+                 SUMMARY SHEET
+            </td>
+        </tr>
+
+    </table>
+
+
+
+     <input name="submitprint" type= "submit" value="Print Report" onclick = "openrecprint();">
+    <div class="printable">
+
+    {% for k in replist %}
+
+
+
+  <table style="margin-top:5%;margin-bottom:0.5%;font-size:0.7em;border:0.001em solid black" width="100%" class="table  table-bordered table" id="dataTables-example">
+    <tr >
+      <td style='border:0px solid black'>
+          <img style="width: 10em; height: 10em;" src="/static/{{k.school.logo }}" alt="{{ k.studentinfo.fullname }}">
+      </td>
+
+            <td  style="border:0px solid black">
+
+            <table >
+              <span style="letter-spacing:0.02em;border:0em solid black;font-weight:bold;text-align:center;font-family:verdana;font-size:2.5em;">{{k.school.name }} </span>
+            </table>
+
+            <table style="font-weight:bold;margin-top:-0%;margin-bottom:0%">
+                <span style="letter-spacing:0.8em;font-size:1.2em;background-color:red;color:white">GOVERNMENT APPROVED </span>
+            </table>
+
+        <table style="margin-top:-1%;margin-bottom:0%">
+            <span  style="font-weight:bold;letter-spacing:1em;font-size:0.8em">WAEC & NECO ACCREDITED</span>
+        </table>
+    </td>
+        <td style='border:0px solid black'>
+          <img style="width: 10em; height: 10em;" src="/static/{{k.studentinfo.studentpicture }}" alt="{{ k.studentinfo.fullname  }}">
+      </td>
+
+    </tr>
+</table>
+
+    <div style='font-weight:bold;border:0px solid black;font-size:1em;text-align:center'>
+      <td >SECOND TERM SUMMARY SHEET {{ k.studentinfo.admitted_session }}
+      </td>
+    </div>
+
+<body>
+
+      <div style = "background-image: url(/static/school-logo/log2.jpg);
+    background-repeat:no-repeat;
+    background-size:cover">
+
+
+  <table style="margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+        <td style="border:0.5px solid black;font-weight:bold;font-size:1mem"> NAME </td>
+        <td style="border:0.5px solid black">  {{ k.studentinfo.fullname}} </td>
+        <td style="border:0.5px solid black;font-weight:bold;font-size:k"> STUDENT CODE </td>
+        <td style="border:0.5px solid black">  {{ k.studentinfo.admissionno}} </td>
+     <td style='border:0.5px solid black;font-weight:bold'>GENDER</td>
+    <td style="border:0.5px solid black">{{ k.studentinfo.sex }}</td>
+  </table>
+
+
+
+   <table style="margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+
+    <td style='border:0.5px solid black;font-weight:bold' > CLASSROOM</td>
+    <td style="border:0.5px solid black">{{k.studentinfo.admitted_class }}{{ k.studentinfo.admitted_arm }}</td>
+
+      <td style='border:0.5px solid black;font-weight:bold'> STUDENT AVERAGE</td>
+    <td style="border:0.5px solid black">{{ k.academic.stu_ave2 }}</td>
+
+    <td style='border:0.5px solid black;font-weight:bold'>CLASS AVERAGE</td>
+    <td  style="border:0.5px solid black">{{ k.academic.class_ave2 }}</td>
+
+    </table>
+
+  <table style="margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+  <td style='border:0.5px solid black;font-weight:bold'>TIMES SCHOOL OPENED</td>
+    <td  style="border:0.5px solid black">{{k.academic.days_open}}</td>
+      <td style='border:0.5px solid black;font-weight:bold'>TIMES PRESENT</td>
+    <td style="border:0.5px solid black">{{k.academic.days_present}}</td>
+       <td style='border:0.5px solid black;font-weight:bold'>TIMES ABSENT</td>
+    <td style="border:0.5px solid black">{{ k.academic.days_absent }}</td>
+  </table>
+
+
+
+
+      <table style="margin-top:0%;margin-bottom:0.5%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+      <td style='border:0.5px solid black;font-weight:bold'>NEXT TERM BEGINS</td>
+    <td style="border:0.5px solid black">{{next_term}}</td>
+      <td style='border:0.5px solid black;font-weight:bold'>GRADE</td>
+    <td  style="border:0.5px solid black">{{ k.stu_grade }}</td>
+
+      </table>
+
+
+
+
+
+    <table style="text-align:center;margin-top:0%;margin-bottom:0%" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+            <tr style="border:0.5px solid black;font-weight:bold; font-size:12px">
+                <td style="border:0.5px solid black">S/N</td>
+                <td style="border:0.5px solid black">Subject</td>
+                <td style="border:0.5px solid black">Mid term <br>20</td>
+                <td style="border:0.5px solid black">CA <br>20</td>
+                <td style="border:0.5px solid black">Exam<br>60</td>
+                <td style="border:0.5px solid black">Term Score</td>
+                <td style="border:0.5px solid black">1st Term Score</td>
+<!--                 <td >Subject<br> Average</td>
+                <td >Subject<br>Position</td> -->
+                <td style="border:0.5px solid black">Grade</td>
+                <td style="border:0.5px solid black">Remark</td>
+                <!-- <td style="border:0.5px solid black">Teacher's Name</td> -->
+            </tr style="border:1px solid black">
+
+        {% for p in k.subject %}
+
+            <tr>
+                <td style="border:0.5px solid black">{{ forloop.counter }}</td>
+                <td style="border:0.5px solid black;text-align:left">{{ p.secondterm.subject }}</td>
+                <td style="border:0.5px solid black">{{ p.secondterm.third_ca }}</td>
+                <td style="border:0.5px solid black">{{ p.secondterm.fourth_ca }}</td>
+                <td style="border:0.5px solid black">{{ p.secondterm.sixth_ca }}</td>
+                <td style="border:0.5px solid black">{{ p.secondterm.end_term_score }}</td>
+                <td style="border:0.5px solid black">{{ p.firstterm }}</td>
+                      {% if p.secondterm.grade = 'F' %}
+                <td style='border:0.5px solid black;color:red'>{{ p.secondterm.grade}}</td>
+                        {% else %}
+                <td style="border:0.5px solid black">{{ p.secondterm.grade}}</td>
+                {% endif %}
+                <td style="border:0.5px solid black">{{ p.secondterm.remark }}</td>
+                <!-- <td style="border:0.5px solid black">{{ p.secondterm.subject_teacher }}</td> -->
+            </tr>
+
+        {% endfor %}
+
+            <tr>
+                <td style="border:0.5px solid black"></td>
+                <td style="border:0.5px solid black;text-align:center;font-weight:bold;">Total Score</td>
+                <td style="border:0.5px solid black"></td>
+                <td style="border:0.5px solid black"></td>
+                <td style="border:0.5px solid black"></td>
+                <td style="border:0.5px solid black;font-weight:bold;text-align:center;">{{k.totalmark2}}</td>
+                <td style="border:0.5px solid black;font-weight:bold;text-align:center;">{{k.totalmark1}}</td>
+                <td style="border:0.5px solid black"></td>
+                <td style="border:0.5px solid black"></td>
+                <!-- <td style="border:0.5px solid black"></td> -->
+            </tr>
+
+           </table>
+    </tr>
+
+
+  <table style="text-align:center;margin-top:0.9%;margin-bottom:0%;font-size:0.9em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+
+<tr >
+  <td style="border:0.0em solid black">
+     <table style="text-align:center;margin-top:0%;margin-bottom:0%;font-size:0.9em" width="100%" class="table  table-bordered table" id="dataTables-example">
+      <tr>
+        <td style="border:0em solid black">
+          <table style="text-align:center;margin-top:0%;margin-bottom:0%;font-sizhe:0.5em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+        <caption Style='text-align:center'><b>PERSONAL AND SOCIAL DEVELOPMENT</b></caption>
+
+        <tr style="font-weight:bold">
+          <td style="text-align:left;border:0.002em solid black">ATTENDANCE</td>
+          <td style="border:0.002em solid black">{{k.sycho.attendance}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;border:0.002em solid black">SOCIAL BEHAVIOUR</td>
+          <td style="border:0.002em solid black">{{k.sycho.social_behaviour}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;border:0.002em solid black">MOTIVATION</td>
+          <td style="border:0.002em solid black">{{k.sycho.motivation}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:left;border:0.002em solid black">CONTRIBUTION</td>
+          <td style="border:0.002em solid black">{{k.sycho.contribution}}</td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <table style="color:red;margin-top:0%;margin-bottom:2%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+            <span style="color:blue">
+            Scale: 5 = Excellent      4 = Very Good  3=Good  2 = Average  1 = Needs assistance
+            </span>
+        </table>
+      </td>
+    </tr>
+  </table>
+  </td>
+
+    <td >
+      <table style="border-collapse:collapse;text-align:center;margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+        <caption Style='text-align:center'><b>SCALE</b></caption>
+                {% for j in k.grading %}
+                  <tr style="border:0.01em solid black">
+                    <td style="border:0.01em solid black">{{ j.grade }} </td>
+                    <td style="border:0.01em solid black"> {{ j.remark }}</td>
+                  </tr>
+                {% endfor %}
+      </table>
+    </td>
+
+</tr>
+</table>
+
+
+
+
+<table style="margin-top:0.9%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+    <td style="border:0.5px solid black;font-weight:bold">Class Teacher's Comment</td>
+    <td style="border:0.5px solid black">{{k.academic.class_teacher_comment}}</td>
+
+</table>
+
+
+<table style="margin-top:0.1%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+    <td style="border:0.5px solid black;font-weight:bold">Principal's Comment & Sign</td>
+    <td  style="border:0.5px solid black">{{k.academic.principal_comment}}</td>
+    <td style='border:0.5px solid black;font-weight:bold;text-align:right'>Printed</td>
+    <td  style="border:0.5px solid black">{{date}}</td>
+</table>
+
+
+ </div>
+</body>
+
+{% endfor %}
+
+
+    <script language="javascript" type="text/javascript">
+        function openrecprint()
+        {
+            //alert("welcome");
+            $( ".printable" ).print();
+        }
+    </script>
+
+{% endblock %}
+

@@ -1,0 +1,102 @@
+{% extends "sysadmin/base.htm" %}
+{%block head %}
+    {%block title %}{%endblock%}
+{%endblock %}
+{%block content%}
+    <!-- <div align ="center" style = "width:100%;heigth:10%;background:black;color:white;font-size:18px"> CONTROL PANEL</div>-->
+    <div >
+
+
+       <table style="margin-top:01%;margin-bottom:0%" width="100%" class="table  table-bordered" id="dataTables-example">
+
+    <tr style="text-align:center">
+        <td >
+            <a href="/controllers/term-status/"><i class="fa fa-edit fa-fw"></i>Change Term Status</a>
+        </td>
+        <td style='background:blue'>
+           <a style='color:white' href="/controllers/reportsheet/"><i class="fa fa-edit fa-fw"></i>Reportsheet Type</a>
+        </td>
+        <td >
+              <a href="/controllers/reportsheet/dataentry/"><i class="fa fa-edit fa-fw"></i>Data Entry</a>
+        </td>
+
+        <!-- td>
+           <a href="/cbt/stream/allstrem/"><i class="fa fa-tasks fa-fw"></i> Stream</a>
+        </td> -->
+    </tr>
+
+
+</table>
+
+        <div  style="background-color:#ccccc0;border:0px solid black;width:100%;height:25px; font-size:14px;color:black;text-align:center;padding-top:5px;"> SET REPORTSHEET PREFERENCES  </div>
+
+        <div  style="color:red;font-family:verdana;font-size:13px;text-decoration:blink;background-color:#ffffff;text-align:center;" > {{varerr}}</div>
+
+                
+              <form action="" method="post" name ="main" onsubmit="disable(this)">
+
+                      <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                            <tr>
+                                <td style='font-weight:bold'>Report Type</td>
+                                <td>{{ form.report}}</td>
+
+                            </tr>
+                               <tr> 
+                                <td style='font-weight:bold'> Status</td>
+                                <td>{{ form.status}}</td>
+
+                            </tr>
+                            
+                    </table>
+
+    <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                                <tr>
+ <input class="btn btn-lg btn-success btn-block" name="submit" type= "submit" value="Change Type">
+                        <!-- <input name="submit" type= "submit" value="Change Type"> -->
+                                </tr>
+                        
+                        </table>
+                    </form>
+             
+            <tr>
+                <td >
+                 {% if getdetails %}
+
+                    <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                    <div style="background-color:#ccccc0;border:0px solid black;width:100%;height:25px; font-size:14px;color:black;text-align:center;padding-top:5px;"> REPORTSHEET STATUS </div>
+                        <tr style='text-align:center'>
+                            <td ><strong>S/N</strong></td>
+                            <td ><strong>Reportsheet </strong></td>
+                            <td ><strong>Status</strong></td>
+                        </tr>
+                        {% for pincode in getdetails %}
+
+                            <tr style='text-align:center'>
+
+                            <td >  {{ forloop.counter }} </td>
+                            <td >  {{ pincode.reportsheet }}</td>
+                            <td > {{ pincode.status }} </td>
+
+                        {% endfor %}
+                        </tr>
+                    </table>
+
+                {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+
+
+
+{%endblock%}

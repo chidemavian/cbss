@@ -1,0 +1,84 @@
+{% extends 'sysadmin/base.htm' %}
+{% block sectionTitle %}{% endblock %}
+{% load humanize %}
+{% block content %}
+
+
+            <div class="row">
+                <div class="col-lg-12">
+              <h1 class="page-header"><i class="fa fa-edit fa-1x"></i> Summary Sheet</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+     <table width="100%" class="table  table-bordered " id="dataTables-example">
+        <tr>
+            <td colspan="20" style="text-align:center;color:black;font-size:14px;background-color:#ccccc0">
+                 SPEECH AND PRIZE GIVING            </td>
+        </tr>
+
+
+                <form action="" method="POST">
+                 <table width="100%" class="table  table-bordered " id="dataTables-example">
+                    <tr>
+                        <td>
+                            {{ form.session.label_tag }}</td>
+                            <td>{{ form.session }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ form.klass.label_tag }}</td>
+                            <td>{{ form.klass }}
+                        </td>
+                    </tr>
+                    </table>
+        <table width="100%" class="table  table-bordered " id="dataTables-example">
+            <tr>
+            <td style = 'text-align:centre'><input name="submit" type= "submit" value=" View List" ></td>
+            </tr>
+        </table>
+                </form>
+
+
+    <table style="text-align:center;margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+
+<tr  style="border:0.5px solid black;font-weight:bold">
+            <td style="border:0.5px solid black">S/N</td>
+            <td style="border:0.5px solid black">Name</td>
+            <td style="border:0.5px solid black">Classroom</td>
+            <td style="border:0.5px solid black">Annual Average</td>
+        </tr>
+        {% for p in getdetails %}
+            <tr style="font-weight:normal;">
+                <td style="border:0.5px solid black">{{ forloop.counter }}</td>
+                <td style="border:0.5px solid black;font-weight:bold;text-align:left;font-size:9px;">{{ p.student.surname }} {{ p.student.firstname }} {{ p.student.othername }}</td>
+                <td style="border:0.5px solid black">{{ p.student.admitted_class }} {{ p.student.admitted_arm }}</td>
+                <td style="border:0.5px solid black">{{ p.annualaverage }}</td>
+
+            </tr>
+
+{% endfor %}
+</table>
+
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+
+
+    <script language="javascript" type="text/javascript">
+        function openrecprint()
+        {
+            //alert("welcome");
+            $( ".printable" ).print();
+        }
+    </script>
+
+{% endblock %}
+

@@ -1,0 +1,184 @@
+{% extends 'assessment/base_cl.htm' %}
+{% block content %}
+
+
+
+
+<!-- <table width="100%" class="table  table-bordered table-hover" id="dataTables-example"> -->
+        
+
+        {% if students_list %}
+    <!-- <tr>   -->
+            <input name="submitprint" type= "submit" value="Print Report" onclick = "openrecprint();">
+
+            <div class="printable">
+
+
+            <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                <tr>
+                    <td >
+                        <img style="width:9em; height:9em" src="/static/{{ school.logo }}" alt="{{ school.name }}">
+                    </td>
+                    <td >
+                        <span style="font-size:1.5em;font-weight:bold;">{{ school.name }}</span><br>{{ school.address }}<br>{{ school.websited }}
+                    </td>
+                </tr>
+            </table>
+
+            
+
+                <div style="text-align: center; vertical-align: middle;font-weight:bold;">
+                    <td>STUDENT LIST FOR {{ disclass }}&nbsp;{{ disarm }} {{ session }} SESSION</td>
+
+                </div>
+
+        <table style="text-align: center" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                          <tr style="font-weight:bold;">
+                                <td >S/N</td>
+                                <td >Name</td>
+                                <td >Adm No</td>
+                                <td >Gender</td>
+
+
+                 <!--                <td >Class</td>
+                                <td >House</td>
+                                <td >Day/Boarding</td>
+                                <td >Parent Phone </td>                                
+                                <td >Parent Mail</td> -->
+
+                           </tr>
+                            {% for student in students_list %}
+                                <tr>
+                                    <td >{{ forloop.counter }}</td>
+                                    <td >{{ student.fullname }}</td>
+                                    <td >{{ student.admissionno }}</td>
+                                    <td >{{ student.sex }}</td>
+
+      <!--                               <td >{{ student.admitted_class }} {{ student.admitted_arm }}</td>
+                                    <td >{{ student.house }}</td>
+                                    <td >{{ student.dayboarding }}</td>
+                                    <td >{{ student.fathernumber }}</td>
+                       
+                                    <td >{{ student.fatheremail|lower }}</td> -->
+
+                                    
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+
+            </div>
+ <!-- </tr>      -->
+        {% endif %}
+
+    <!-- </table> -->
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+        function openrecprint()
+        {
+            //alert("welcome");
+            $( ".printable" ).print();
+        }
+</script>
+
+
+
+   <script>
+        $(document).ready(function() {
+            var pickerOpts = {
+                //appendText: "mm/dd/yy",
+                //defaultDate: "+5",
+                showOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat:"yy-mm-dd"
+                //showButtonPanel: true
+                // showOn: "button"
+            };
+            getclass();
+            getarm();
+
+        });
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function getclass(){
+            var state = $("#id_session").val() ;
+            //alert(state);
+            var url = "/reportsheet/getclassaff/";
+            var i = 0;
+            var data='userid='+state;
+            $("#id_klass").val('');
+            $("#id_klass").html('');
+            if (state != undefined){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data:data,
+                    success: function(data){
+                        var options = '';
+                        for (i=0; i<data.length; i++){
+                            options += '<option value="' + data[i] +'">' + data[i] + '</option>'
+                        }
+                        $("#id_klass").append(options);
+                    }
+                })
+            }
+        }
+
+    </script>
+    <script type="text/javascript" language="javascript">
+        function getarm(){
+            var state = $("#id_session").val() ;
+            //alert(state);
+            var url = "/reportsheet/getarmaff/";
+            var i = 0;
+            var data='userid='+state;
+            $("#id_arm").val('');
+            $("#id_arm").html('');
+            if (state != undefined){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data:data,
+                    success: function(data){
+                        var options = '';
+                        for (i=0; i<data.length; i++){
+                            options += '<option value="' + data[i] +'">' + data[i] + '</option>'
+                        }
+                        $("#id_arm").append(options);
+
+                    }
+                })
+            }
+        }
+
+    </script>
+
+
+
+
+
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+
+<!--
+<div style="width: 100%;">
+    <input type="button" value="Print">
+    <em style="text-decoration: infotext; ">Download report as <a href="/students/report/download?format=pdf">pdf</a>&nbsp;
+    or&nbsp;<a href="/students/report/download?format=xls">xls</a>&nbsp;(MS Excel format)</em>
+</div>
+-->
+
+{% endblock %}

@@ -1,0 +1,25 @@
+
+Django==1.5
+mysqlclient==1.4.6
+South==1.0.2
+Pillow==6.2.2
+xlwt==0.7.1
+xhtml2pdf==0.1b1 [html5lib==1.0b8, httplib2==0.15.0, PyPDF2==1.26.0, reportlab==3.5.32]
+xlrd==0.7.1
+
+
+
+
+
+
+
+docopt==0.6.2
+
+num2words==0.5.10
+
+
+six==1.13.0
+
+
+zipp==1.2.0
+contextlib2==0.6.0.post1

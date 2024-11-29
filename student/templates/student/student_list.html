@@ -1,0 +1,139 @@
+{% extends 'student/base.htm' %}
+{% block content %}
+
+
+
+    <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+
+                        <form action="" method="POST" onsubmit="disable(this)">
+                        <tr>
+
+                            <td>{{ form.session.label }}</td>
+                            <td>{{ form.session }}</td>
+                        </tr>
+
+                        <tr>
+
+                            <td>{{ form.term.label }}</td>
+                            <td>{{ form.term }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{ form.klass.label }}</td>
+                            <td>{{ form.klass }}</td>
+                        </tr>
+
+                            <tr>
+                                <td>{{ form.arm.label }}</td>
+                                <td> {{ form.arm }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form.dayboarding.label }}</td>
+                               <td> {{ form.dayboarding }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form.filtermethod.label }}</td>
+                                <td>{{ form.filtermethod }}</td>
+                            </tr>
+                        <tr>
+                            <td>{{ form.excelfile.label }}</td>
+                            <td>{{ form.excelfile }}</td>
+
+                        </tr>
+    <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+    <td  style="text-align: center; vertical-align: middle;"><input type="submit" value="View List" name = "submit"></td>
+     </table>
+                </form>
+</table>
+
+
+
+
+
+<table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+        {% if students_list %}
+    <tr>
+            <input name="submitprint" type= "submit" value="Print Report" onclick = "openrecprint();">
+
+            <div class="printable">
+            <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                <tr>
+                    <td >
+                        <img style="width: 10em; height: 10em;" src="/static/{{ school.logo }}" alt="{{ school.name }}">
+                    </td>
+                    <td >
+                        <span style="font-size:2em;font-weight:bold;">{{ school.name }}</span><br>{{ school.address }}<br>{{ school.websited }}
+                    </td>
+                </tr>
+            </table>
+        <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                <tr style="text-align: center; vertical-align: middle;font-weight:bold;">
+                    <td>STUDENT LIST FOR {{ disclass }}&nbsp;{{ disarm }} {{ session }} SESSION</td>
+
+                </tr>
+        </table>
+        <table style="text-align: center" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                          <tr style="font-weight:bold;">
+                                <td >S/N</td>
+                                <td >Name</td>
+                                <td >Gender</td>
+                                <td >Adm No</td>
+
+
+                 <!--                <td >Class</td>
+                                <td >House</td>
+                                <td >Day/Boarding</td>
+                                <td >Parent Phone </td>
+                                <td >Parent Mail</td> -->
+
+                           </tr>
+                            {% for student in students_list %}
+                                <tr>
+                                    <td >{{ forloop.counter }}</td>
+                                    <td >{{ student.fullname }}</td>
+                                    <td >{{ student.sex }}</td>
+                                    <td >{{ student.admissionno }}</td>
+
+      <!--                               <td >{{ student.admitted_class }} {{ student.admitted_arm }}</td>
+                                    <td >{{ student.house }}</td>
+                                    <td >{{ student.dayboarding }}</td>
+                                    <td >{{ student.fathernumber }}</td>
+
+                                    <td >{{ student.fatheremail|lower }}</td> -->
+
+
+                                </tr>
+                            {% endfor %}
+                        </table>
+            </div>
+ </tr>
+        {% endif %}
+
+    </table>
+<script language="javascript" type="text/javascript">
+        function openrecprint()
+        {
+            //alert("welcome");
+            $( ".printable" ).print();
+        }
+</script>
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+<!--
+<div style="width: 100%;">
+    <input type="button" value="Print">
+    <em style="text-decoration: infotext; ">Download report as <a href="/students/report/download?format=pdf">pdf</a>&nbsp;
+    or&nbsp;<a href="/students/report/download?format=xls">xls</a>&nbsp;(MS Excel format)</em>
+</div>
+-->
+
+{% endblock %}

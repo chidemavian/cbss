@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SchApp 8.0 {% block title %}{% endblock %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+
+
+
+                            {% if myqst %}
+<table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+<div> <span style='color:blue'>{{exam}} </span>questions for <span style='color:blue'>{{subject}} {{klass}} {{term}} </span>term <span style='color:blue'>{{session}} </span>Session  </div>
+
+<!--   <tr>
+    <td style='font-weight:bold;text-align:center;color:blue'><a href="#" title="Click here to add a question" onClick= "getdialogtrys({{ myqst.id  }})"><i class="fa fa-plus-square fa-2.5x">Add question</i></a></td>
+        <a href="/cbt/enter/question/"  title="Click here to add a question">
+
+        </tr> -->
+
+</table>
+
+                          
+</table>
+
+                          
+     <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                           
+                            <tr style='font-weight:bold;text-align:center'>
+                                <td >S/N</td>
+                                <td >QUESTIONS</td>
+                                <td >OPTIONS</td>
+                                <td >IMAGES</td>
+
+                            </tr>
+  {% for student in myqst%}
+                                <tr style='text-align:center'>
+                                    <td >{{ forloop.counter }}.</td>
+                                    <td>  {{ student.qstn }}</td>
+
+                                    <td>YES</td>
+                                    {% if student.image = '/ax/image' %}
+
+                                    <td ><a style='color:blue' href="#" title="Click here to add picture" onClick= "getdialogtrys({{ student.id  }})"><i class="fa fa-upload"></i></a></td>
+                                    {% else %}
+                                    <td ><a style='color:green' href="#" title="Click here to view image" onClick= "getdialogtrys({{ student.id  }})"><i class="fa fa-download"></i></a></td>
+                                    {% endif %}
+                            {% endfor %}
+        {% else %}
+        <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+            
+        
+         <td style = "color:blue">No questions found .................... </td>        
+    </table>
+        {% endif %}
+    </tr>
+  
+    <!-- </table> -->
+
+
+     </table>
+
+<div id="myDialog" title="Enter Assessment Score"></div>
+
+
+<script type="text/javascript" >
+            $(document).ready(function() {
+                $("#myDialog").hide();
+            });
+</script>
+
+<script type="text/javascript" language="javascript">
+    function getdialogtrys(vid){
+        var state = vid;
+        var url = "/cbt/enter/question/ajax/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+
+
+<script type="text/javascript" language="javascript">
+            function getdialog(){
+                var dialogOpts = {
+                    autoOpen:true,
+                    modal:true,
+                    position: ["center", "middle"],
+                    height:450,
+                    width:550,
+                    title:'<a>SchApp 8.0 Student Score</a>' ,
+                    closeOnEscape:true,
+                    show: true,
+                    hide: true,
+                    bgiframe: true
+                };
+                $("#myDialog").dialog(dialogOpts);
+            }
+
+        </script>
+</body>
+
+
+
+<!-- 
+
+
+
+
+<script >
+    function getdialogtry1(vid){
+        var state = vid ;
+        // alert(state);
+        var url = "/reportsheet/getsubjectscore1/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry2(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore2/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry3(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore3/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry4(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore4/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+ -->
+</html>

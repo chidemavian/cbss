@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional/EN">
+<html>
+<head>
+    <title> System Admin </title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+     
+
+
+
+
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<div align ="center" style="background-color:black;border:0px solid black;width:100%;heigth:10%; font-size:0.8em;color:white"> <strong>EDIT USER CREATION  </strong> </div>
+
+
+<form action="/controllers/edituseraca/{{ getdetails.id }}/" method="post" name ="main" onsubmit="disable(this)">
+
+<table style="text-align:center;margin-top:0%;margin-bottom:2%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+     <tr>
+         <td style="background-color:white;width:100%;font-sizey:.7em;color:red;font-style:italic;text-align:center">
+             <strong>Press ESC to close  </strong>
+         </td>
+     </tr>
+<tr>
+        <td>User Name:</td>
+        <td>
+          <input id="id_username" type="text" name="username"  value = "{{ getdetails.username }}"  readonly = "readonly" class="loginTxtbox">
+        </td>
+</tr>
+<tr>
+     <td>Staff Name:</td>
+     <td>
+      <input id="id_staffname" type="text" name="staffname" value = "{{ getdetails.staffname }}" class="loginTxtbox" readonly = "readonly" ></td>
+</tr>
+</table>
+
+  <table style="text-align:center;margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+    
+
+  <caption Style='text-align:center;margin-top:0%;margin-bottom:0%'><b>CONFIGURATION</b></caption>
+
+  <tr style="font-weight:bold">
+    
+    <td style="border:0.002em solid black"> Allow <input type="checkbox" name="setup" id="setup" {{setup}} ></td>
+
+  </tr>
+</table>
+
+<!-- <tr>
+  <td  style="vertical-align:top; width:auto;text-align:left"> Allow <input type="checkbox" name="setup" id="setup" {{setup}} >
+  </td>
+</tr> -->
+
+
+
+  <table style="text-align:center;margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+  <caption Style='text-align:center'><b>STUDENT INFORMATION</b></caption>
+
+  <tr style="font-weight:bold">
+    
+    <td style="border:0.002em solid black"> New Student<input type="checkbox" name="studentregistration" id="studentregistration" {{studentregistration}}></td>
+
+    <td style="border:0.002em solid black">Edit Student<input type="checkbox" name="editregistration" id="editregistration" {{editregistration}}></td>
+
+    <td style="border:0.002em solid black">  Student Report<input type="checkbox" name="studentreport" id="studentreport" {{studentreport}}></td>
+
+    <td style="border:0.002em solid black"> Withdraw Student<input type="checkbox" name="withdraw" id="withdraw" {{withdraw}}></td>
+
+    <td style="border:0.002em solid black">Return Student<input type="checkbox" name="returngonestudent" id="returngonestudent" {{returngonestudent}}></td>
+
+    <td style="border:0.002em solid black">Withraw Report<input type="checkbox" name="withdrawnreport" id="withdrawnreport" {{withdrawnreport}}></td></td>
+  </tr>
+</table>
+
+
+<!-- <tr>
+  <caption>Student Info</caption>
+    New Student<input type="checkbox" name="studentregistration" id="studentregistration" {{studentregistration}}>
+      Edit Student<input type="checkbox" name="editregistration" id="editregistration" {{editregistration}}>
+     Student Report<input type="checkbox" name="studentreport" id="studentreport" {{studentreport}}>
+    Withdraw Student<input type="checkbox" name="withdraw" id="withdraw" {{withdraw}}>
+       Return Student<input type="checkbox" name="returngonestudent" id="returngonestudent" {{returngonestudent}}>
+       Withraw Report<input type="checkbox" name="withdrawnreport" id="withdrawnreport" {{withdrawnreport}}></td>
+</tr> -->
+
+
+  <table style="text-align:center;margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+  <caption Style='text-align:center'><b>STUDENT BILL</b></caption>
+
+  <tr style="font-weight:bold">
+    
+    <td style="border:0.002em solid black">  Bill Desc.<input type="checkbox" name="expensedecription" id="expensedecription" {{expensedecription}}></td>
+
+
+
+    <td style="border:0.002em solid black"> Bill SetUp<input type="checkbox" name="billsetup" id="billsetup" {{billsetup}}></td>
+
+
+    <td style="border:0.002em solid black"> Additional Bill<input type="checkbox" name="additionalexpenses" id="additionalexpenses" {{additionalexpenses}}></td>
+
+
+
+    <td style="border:0.002em solid black"> Print Bill<input type="checkbox" name="printbill" id="printbill" {{printbill}}></td>
+
+
+
+    <td style="border:0.002em solid black">Bill Schedule<input type="checkbox" name="billschedule" id="billschedule" {{billschedule}}></td>
+
+  </tr>
+</table>
+
+
+<!--     <tr>
+        <td colspan="2"><strong>Bill Module ::</strong>
+            Bill Desc.<input type="checkbox" name="expensedecription" id="expensedecription" {{expensedecription}}>
+
+            Bill SetUp<input type="checkbox" name="billsetup" id="billsetup" {{billsetup}}>
+
+            Additional Bill<input type="checkbox" name="additionalexpenses" id="additionalexpenses" {{additionalexpenses}}>
+
+
+            Print Bill<input type="checkbox" name="printbill" id="printbill" {{printbill}}>
+            Bill Schedule<input type="checkbox" name="billschedule" id="billschedule" {{billschedule}}>
+          </td>
+    </tr> -->
+
+  <table style="text-align:center;margin-top:0%;margin-bottom:0%;font-size:0.7em" width="100%" class="table  table-bordered table" id="dataTables-example">
+
+  <caption Style='text-align:center'><b>ASSESSMENT</b></caption>
+
+  <tr style="font-weight:bold">
+    
+    <td style="border:0.002em solid black">Report Sheet<input type="checkbox" name="reportsheet" id="reportsheet" {{reportsheet}}></td>
+
+
+
+    <td style="border:0.002em solid black">Broad Sheet<input type="checkbox" name="broadsheet" id="broadsheet" {{broadsheet}}></td>
+
+  </tr>
+</table>
+
+
+<!--     <tr>
+        <td colspan="2"><strong>Assessment ::</strong>
+            Report Sheet<input type="checkbox" name="reportsheet" id="reportsheet" {{reportsheet}}>
+
+            Broad Sheet<input type="checkbox" name="broadsheet" id="broadsheet" {{broadsheet}}>
+            </td>
+    </tr> -->
+
+<tr>
+<td style="text-align:center">
+
+<input name="submit" type= "submit" value="Update User Account">
+ </td>
+
+</tr>
+
+
+</table>
+</form>
+
+<!-- parti-->
+
+
+</body>
+</html>

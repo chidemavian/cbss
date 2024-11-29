@@ -1,0 +1,108 @@
+
+
+<body>
+
+
+<form action="/reportsheet/editcomment/{{ current_term.id }}/" method="post" onsubmit="disable(this)">
+
+
+<!--     <table style="margin-top:0.8%;margin-bottom:0.3%" class="table  table-bordered" id="dataTables-example">
+    <td >
+     <img style="width:20%; height:20%;" src="/static/{{ current_term.student.studentpicture }}" alt="{{ k.studentinfo.fullname  }}">
+                  </td>
+     </table> -->
+
+
+ <table style="font-size:0.7em;margin-top:0.1%;margin-bottom:0%" class="table  table-bordered" id="dataTables-example">
+                    <tr>
+                        <td style="font-weight:bold">Adm. No</td>
+                        <td>{{ current_term.student.admissionno }} </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-weight:bold">Student Name</td>
+                        <td>{{ current_term.student.fullname}} </td>
+
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Session</td>
+                        <td> {{ current_term.student.admitted_session}}</td>
+</table>
+
+ <table style="font-size:0.7em;margin-top:0.3%;margin-bottom:0%" class="table  table-bordered" id="dataTables-example">
+            <tr>
+               <td style="font-weight:bold"> Term  </td>
+               <td> {{ current_term.term}} </td>
+            </tr>
+            <tr>
+                 <td style="font-weight:bold">Classroom </td>
+                  <td>{{current_term.klass}}{{current_term.arm}}</td>
+            </tr>
+
+                    <tr>
+                        <td style="font-weight:bold"> Times School Open</td>
+                        <td> {{ current_term.days_open }} </td>
+
+                    </tr>
+</table>
+
+ <table style="font-size:0.7em;margin-top:0.3;margin-bottom:0%" class="table  table-bordered" id="dataTables-example">
+
+                    <tr>
+                        <td style="font-weight:bold">Times Absent</td>
+                        <td>
+                            <input type="text"  id="noabsent" size="3" name="noabsent" value="{{ current_term.days_absent }}" class ="loginTxtbox">
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold">Next Term Begins </td>
+                        <td> {{ next_term.start_date}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight:bold"> Teacher's Comment </td>
+                        <td>
+
+                            <textarea id="class_teacher_comment" rows="5" cols="25"   name="class_teacher_comment" class ="loginTxtbox1">{{ current_term.class_teacher_comment }}</textarea>
+                        </td>
+
+                    </tr>
+</table>
+
+ <table style="font-size:0.7em;margin-top:0.3%;margin-bottom:0%" class="table  table-bordered" id="dataTables-example">
+
+    <td style="text-align:center;"><input type="submit" value=":: Submit Comment ::" name="submit"></td>
+
+</table>
+
+
+</form>
+
+
+<script>
+    $(document).ready(function() {
+        var pickerOpts = {
+            appendText: "dd-mm-yy",
+            showOtherMonths: true,
+            changeMonth: true,
+            changeYear: true,
+            dateFormat:"dd-mm-yy"
+        };
+        $("#nexttem").datepicker(pickerOpts);
+        $("#noopen").focus();
+    });
+</script>
+
+
+
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+
+</body>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SchApp 8.0 {% block title %}{% endblock %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+
+
+
+
+    {% if data %}
+
+        <div style='color:green;text-align:center'>Touch each name to enter score</div>
+         <table style="margin-top:0.8%;margin-bottom:0%" class="table  table-bordered" id="dataTables-example">
+
+            <tr>
+                <td>Subject</td>
+                <td><span style='color:blue'>{{subject}}</span></td>
+            </tr>
+            <tr>
+                <td>Assessment type</td>
+                <td><span style='color:blue'>{{report}}</span></td>
+            </tr>
+            <tr><td>Term</td>
+                <td><span style='color:blue'>{{term}}</span></td>
+            </tr>
+            <tr>
+                <td>Classroom</td>
+                <td><span style='color:blue'>{{klass}}{{arm}}</span></td>
+            </tr>
+        </table>
+
+         <table style="margin-top:0.8%;margin-bottom:0%;font-size:0.8em" class="table  table-bordered" id="dataTables-example">
+                  <thead >
+                            <tr style="text-align:center;font-weight:bold">
+                                <td >S/N</td>
+                                <!-- <td >Admission No</td> -->
+                                <td >Name</td>
+                                <td >Mid Term</td>
+                                <td >CA</td>
+                                <td >Exam Score</td>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+             {% for student in data %}
+                <tr style="text-align:center;">
+                      <td >{{ forloop.counter }}.</td>
+                                    <!-- <td>{{ student.admissionno }}</td> -->
+                                    <!-- <td >{{ student.fullname }}</td> -->
+                      <td title = "enter {{ student.subject }} score for {{student.fullname}}"><a href="#" onClick= "getdialogtry1({{ student.id  }})">{{ student.fullname }}</td>
+
+                     <td>{{ student.third_ca }}</td>
+
+                     <td>
+                        <input style="text-align:center" type="text" readonly  name="fourthca" id="fourthca" size="1" value="{{ student.fourth_ca }}">
+                     </td>
+
+                     <td>
+                       <input style="text-align:center" type="text" readonly name="sixthca" id="sixthca" size="1" value="{{ student.sixth_ca }}" >
+                       </td>
+                      </tr>
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+                </tr>
+             </table>
+
+    {% else %}
+        <div>There are no students offering this course. </div>
+        <div>if you think this is an error, kindly consult with the class teachers of the affected students</div>
+    {% endif %}
+
+
+<div id="myDialog" title="Enter Assessment Score"></div>
+
+<script type="text/javascript" >
+            $(document).ready(function() {
+                $("#myDialog").hide();
+            });
+</script>
+<script >
+    function getdialogtrys(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                get_ca_dialog();
+            }
+        });
+        return false;
+    }
+</script>
+
+<script >
+    function getdialogtry1(vid){
+        // alert(vid);
+        var state = vid +':'+ $("#id_reporttype").val();
+         // alert(state)
+        var url = "/reportsheet/getsubjectscore1/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                get_ca_dialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+
+
+        <script type="text/javascript" language="javascript">
+            function get_ca_dialog(){
+                var dialogOpts = {
+                    autoOpen:true,
+                    modal:true,
+                    position: ["center", "middle"],
+                    // height:450,
+                    // width:550,
+                    title:"Touch  the x to close" ,
+                    closeOnEscape:true,
+                    show: true,
+                    hide: true,
+                    bgiframe: true
+                };
+                $("#myDialog").dialog(dialogOpts);
+            }
+
+        </script>
+</body>
+
+</html>

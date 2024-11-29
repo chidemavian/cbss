@@ -1,0 +1,223 @@
+{% extends 'welcome1.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Catherine Booth Secondary School</title>
+        <link type="text/css" rel="Stylesheet" href="/static/CSS/new_lekan.css" />
+
+</head>
+          
+<body>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"><i class="fa fa-book fa-1x"></i> My Scripts</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+             
+
+  <div class="panel-body">
+
+     <img style='width:100px;height:100px' src="/static/{{data.studentpicture}}" class="img-responsive" alt="Student Image">
+  <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+      <thead>
+
+
+          <tr>
+              <th colspan='5'> Mid term scripts</th>
+
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td bgcolor="">Admission Number</td>
+              <td>{{ data.admissionno }}</td>
+              <td bgcolor="">Student Name</td>
+              <td>{{ data.fullname }}</td>
+          </tr>
+           <tr>
+              <td bgcolor="">Session</td>
+              <td>{{ data.admitted_session }}</td>
+              <td bgcolor="">Class</td>
+              <td>{{ data.admitted_class }}&nbsp;&nbsp;{{ data.admitted_arm }}</td>
+          </tr>
+          <tr>
+              <td bgcolor="">Subject</td>
+              <td> SCIENCE </td>
+
+              <td bgcolor="">Term</td>
+              <td>{{ term }} </td>
+          </tr>
+            <tr>
+              <td bgcolor="">Score</td>
+              <td style='color:red'>{{ add }} </td>
+              <td bgcolor="">Total</td>
+              <td>{{ total }} </td>
+          </tr>
+     </tbody>
+  </table>
+
+{% for tkk in getdetails %}
+
+  <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+    <tr>
+
+           
+            {% if tkk.question %}                
+                <div style= 'font-weight:bold'>
+                    {{ forloop.counter }}. {{tkk.question.question.qstn }}
+                </div>
+                                
+              
+                {% for opt in tkk.options %}
+
+
+
+                    <tr >
+
+
+                     {% if tkk.question.stu_ans = opt.a %}
+                            {% if opt.a == tkk.answer.ans %}
+                                
+                                <div style='text-decoration: line-through; display:inline'>(A.) </div>
+                                 <div style='display:inline; color:green'>{{opt.a}} </div>
+
+                          {% else %}
+                              <div style='text-decoration: line-through;display:inline'> (A.) </div>
+                               <div style='display:inline; color:red'>{{opt.a}} </div>
+                           {% endif %}
+
+                      {% else %}
+                            <div > (A.)  {{opt.a}}</div>
+                      {% endif %}
+        
+                      {% if tkk.question.stu_ans = opt.b %} 
+                          {% if opt.b == tkk.answer.ans %}
+                                <div style='text-decoration: line-through; display:inline'>(B.) </div> 
+                                <div style='display:inline;color:green'>{{opt.b}} </div>
+                          {% else %}
+                              <div style='text-decoration: line-through;display:inline'> (B.) </div>
+                               <div style='display:inline; color:red'>{{opt.b}} </div>
+                           {% endif %} 
+
+                      {% else %}
+                      <div > (B.)  {{opt.b}}</div>
+                      {% endif %}
+                                           
+
+                      {% if tkk.question.stu_ans = opt.c %} 
+                          {% if opt.c == tkk.answer.ans %}
+                                <div style='text-decoration: line-through; display:inline'>(C.) </div> 
+                                <div style='display:inline;color:green'>{{opt.c}} </div> 
+
+                          {% else %}
+                              <div style='text-decoration: line-through;display:inline'> (C.) </div>
+                               <div style='display:inline; color:red'>{{opt.c}} </div>
+                           {% endif %} 
+
+                      {% else %}
+                      <div > (C.)  {{opt.c}}</div>
+                      {% endif %}
+
+
+                       {% if tkk.question.stu_ans = opt.d %} 
+                          {% if opt.d == tkk.answer.ans %}
+                                <div style='text-decoration: line-through; display:inline'>(D.) </div>
+                                <div style='display:inline;color:green'>{{opt.d}} </div> 
+                            {% else %}
+                              <div style='text-decoration: line-through;display:inline'> (D.) </div>
+                               <div style='display:inline; color:red'>{{opt.d}} </div>
+                           {% endif %} 
+
+                      {% else %}
+                      <div > (D.)  {{opt.d}}</div>
+                      {% endif %}
+
+                    </tr>
+
+                {% endfor %}
+
+
+                       {% if tkk.answer.ans != tkk.question.stu_ans %}
+                        <div >Ans = {{tkk.answer.ans}} ({{tkk.answer.option}})</div> 
+                      {% endif %}
+
+
+
+           {% else %}
+
+           <span style="font-weight:bold;font-size:18px;color:gray;"> No Subject Found For "{{ fullname }}",</span>   <a href="#" style="color:blue;font-size:12px;font-weight:bold;" onClick= "getdialogtrys({{ stuid  }});" > Click Here to Add Subject </a>
+           {% endif %}
+
+            {% endfor %}
+
+    </tr>
+</table>
+</div>
+
+<div id="myDialog" title="Add Subject"></div>
+<div id="deletesubject" title="Delete Subject"></div>
+</body>
+
+
+<script type="text/javascript" >
+    $(document).ready(function() {
+        $("#myDialog").hide();
+        $("#deletesubject").hide();
+    });
+</script>
+
+
+
+<script type="text/javascript" language="javascript">
+    function getdialogtrys(vid){
+        var state = vid + ':'+ "{{term}}" ;
+        // alert(state)
+        var url = "/reportsheet/getmoresubject/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+<script type="text/javascript" language="javascript">
+    function getdialog(){
+        var dialogOpts = {
+            autoOpen:true,
+            modal:true,
+            position: ["center", "middle"],
+            height:500,
+            width:610,
+            title:'<a>SchApp 8.0 |  Subject</a>' ,
+            closeOnEscape:true,
+            show: true,
+            hide: true,
+            bgiframe: true
+        };
+        $("#myDialog").dialog(dialogOpts);
+    }
+
+</script>
+
+</html>
+{% endblock %}

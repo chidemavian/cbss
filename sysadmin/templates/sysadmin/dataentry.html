@@ -1,0 +1,137 @@
+
+
+{% extends 'sysadmin/base.htm' %}
+{%block head %}
+    {%block title %}{%endblock%}
+{%endblock %}
+{%block content%}
+    <!-- <div align ="center" style = "width:100%;heigth:10%;background:black;color:white;font-size:18px"> CONTROL PANEL</div>-->
+
+
+
+
+
+
+<table style="margin-top:01%;margin-bottom:0.2%;font-size:1em;padding:5em" width="100%" class="table  table-bordered" id="dataTables-example">
+
+    <tr style="text-align:center">
+        <td >
+            <a href="/controllers/term-status/"><i class="fa fa-edit fa-fw"></i>Change Term Status</a>
+        </td>
+        <td>
+           <a href="/controllers/reportsheet/"><i class="fa fa-edit fa-fw"></i>Reportsheet Type</a>
+        </td>
+        <td style='background:blue'>
+              <a style='color:white' href="/controllers/reportsheet/dataentry/"><i class="fa fa-edit fa-fw"></i>Data Entry</a>
+        </td>
+    </tr>
+</table>
+
+<div style="color:red;text-align:center;margin-top:01%;margin-bottom:0.9%">{{done}}</div>
+<table width="100%" class="table  table-bordered" id="dataTables-example">
+
+    <tr style="text-align:center">
+        <td style='background:blue'>
+           <a href="/controllers/reportsheet/dataentry/" style='color:white' ><i class="fa fa-gear fa-fw"></i>Status</a>
+        </td>
+        <td>
+            <a href="/controllers/reportsheet/excemptions/"><i class="fa fa-gear fa-fw"></i>Excemptions</a>
+        </td>
+    </tr>
+</table>
+
+
+
+<form action="" method="post" name ="main" onsubmit="disable(this)">
+    <table style="margin-top:01%;margin-bottom:0.2%;font-size:1em;padding:5em" width="100%" class="table  table-bordered" id="dataTables-example">
+            <tr>
+                <td>Status</td>
+                <td>
+                      <div class="form-group">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox"  name="dataentry" class="custom-control-input" id="dataentry" {{checked}}>
+                          <label class="custom-control-label" for="dataentry"></label>
+                        </div>
+                      </div>
+            </td>
+            </tr>
+        </table>
+
+        <tr>
+<td style="text-align:center">
+
+<input name="submit" type= "submit" value="Save">
+ </td>
+
+</tr>
+</form>
+        
+  
+
+<div id="myDialog" title="Edit Teacher">
+    <div id="myDate" title="Edit Teacher">
+
+        
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var pickerOpts = {
+                //appendText: "mm/dd/yy",
+                //defaultDate: "+5",
+                showOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat:"yy-mm-dd"
+                //showButtonPanel: true
+                // showOn: "button"
+            };
+            checkFluency();          
+
+        });
+    </script>
+
+    <script type="text/javascript" >
+        $(document).ready(function() {
+
+            $("#dataentry").click(function () {
+                checkFluency();
+            });
+
+
+        });
+    </script>
+
+<script type="text/javascript" language="javascript">
+        function checkFluency(){
+            // alert(vid);
+            var state = vid;
+            var url = "/controllers/dattta/";
+            var i = 0;
+            var data='userid='+state;
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:data,
+
+                success:function(html) {
+                    $("#myDialog").html(html);
+                    getdialog1();
+                }
+            });
+            return false;
+        }
+
+    </script>
+
+
+
+{%endblock%}

@@ -1,0 +1,222 @@
+{% extends 'welcome1.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+
+
+
+
+<table width="100%" class="table  table-bordered" id="dataTables-example">
+
+
+                <table  width="100%" class="table  table-bordered" id="dataTables-example">
+
+                    <tr style="width:100%;">
+
+                        <td style=" text-align:right;vertical-align:top;float:centre;" colspan="1">
+
+                            <img style="width: 100px; height: 100px;text-align:right" src="/static/{{ school.logo }}" alt="{{ school }}" >
+                        </td>
+                        <td  style="vertical-align:top;text-align:center;font-family:verdana;font-size:14px;width:100%;">
+                            <span style="font-weight:bold;font-size:21px;color:#8b0000;"> </span> <br><span style="font-size:41px"> {{ school.name  }}</span><br><span style="font-size:11px"> {{ school.address }}</span>
+                        </td>
+                    <td style=" text-align:right;vertical-align:top;float:centre;" colspan="1">
+                            <img style="width: 100px; height: 120px;" src="/static/{{ form.studentpicture }}" alt="{{ k.studentinfo.fullname  }}">
+                        </td>
+                    </tr>
+                    
+                    
+                   </table>
+
+
+            <table width="100%" class="table  table-bordered" id="dataTables-example">
+              <tr>
+                <td>Session: </td>
+                <td>{{session}}  </td>
+                <td>Term</td>
+                <td> {{term}} </td>
+                <td> Class:</td>
+                <td>{{klass}}</td>
+                 <td>Subject: </td>
+                 <td>{{subject}}</td>
+                <td>id:</td>
+                <td> {{uid}} </td>
+              </tr> 
+            </table>
+
+            <div style="text-align:center" >
+                <tr >
+                <td>Name:......................</td>
+                <td style="text-align:center;font-weight:bold; color:black">{{name}}................................</td>
+                <td></td>
+                <td></td>
+                <td style="text-align:center;font-weight:bold; color:blue"> Adn No: 
+                <td >{{ adm}} </td>
+               </tr>
+            </div>
+
+&nbsp;
+&nbsp;
+&nbsp;
+{{err}} 
+<div>{{a}} </div>
+
+<div>{{k}}</div>
+   
+
+  <table>
+
+        <td style=" color:blue;font-weight:bold;text-align:center;text-size= 14px" colspan="1"><a style='color: red' >Q {{ count }}: </a> {{ question }}</td>
+  </table>
+<div>{{err}}</div>
+&nbsp;
+&nbsp;
+&nbsp;
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+<table width="100%" class="table  table-bordered " id="dataTables-example">
+            <tr rowspan="2" style='border:0px solid black' align='center'>
+          <img style="width: 230px; height: 230px;" src="/static/{{image}}" alt="{{getdetails.question.image}}">
+      </tr>
+</table>
+
+
+<div>{{varerr}}</div>
+
+           
+  {% for k in options %}
+
+
+
+
+<table width="100%" class="table  table-bordered" id="dataTables-example">
+  <form action="/cbt/take_test/next/" method="post" enctype="multipart/form-data" role="form">
+    <tr>
+      {% if ans == k.a %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.a}}' ><a style='text-decoration: line-through'>(A). </a>{{ k.a}} <br>
+        </td>
+        {% else %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.a}}' >(A). {{ k.a}} <br>
+        </td>
+        {% endif %}
+
+    </tr>
+
+    <tr>
+
+            {% if ans == k.b %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.b}}' ><a style='text-decoration: line-through'>(B). </a>{{ k.b}} <br>
+        </td>
+        {% else %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.b}}' >(B). {{ k.b}} <br>
+        </td>
+        {% endif %}
+    </tr>
+
+    <tr>
+
+            {% if ans == k.c %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.c}}' ><a style='text-decoration: line-through'>(C). </a>{{ k.c}} <br>
+        </td>
+        {% else %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.c}}' >(C). {{ k.c}} <br>
+        </td>
+        {% endif %}
+    </tr>
+
+
+    <tr>
+
+            {% if ans == k.d %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.d}}' ><a style='text-decoration: line-through'>(D). </a>{{ k.d}} <br>
+        </td>
+        {% else %}
+        <td>
+        <input type="radio" name="gender" value='{{ k.d}}' >(D). {{ k.d}} <br>
+        </td>
+        {% endif %}
+    </tr>
+
+
+
+<table style='display:inline'  width="10%" class="table  table-bordered" id="dataTables-example">
+  <input class="btn btn-lg btn-success btn-block" name="submit" type= "submit" value="    NEXT QUESTION    "> 
+</table>
+
+</form>
+
+</table>
+
+
+<form action="/cbt/take_test/previous/" method="post" enctype="multipart/form-data" role="form"> 
+<table style='display:inline' width="10%" class="tables  table-bordered" id="dataTables-example">
+ 
+  <div>
+    <input style='' class="btn btn-lg btn-success btn-block" name="submit" type= "submit" value="    PREVIOUS    "> 
+</div>
+</table>
+ </form>
+
+
+ <table>
+
+ <div style="text-align:center;font-weight:bold; color:brown">TO SEE THE NEXT QUESTION, PUSH THE 'NEXT' BUTTON</div>
+
+</table>
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+
+{% endfor %}
+
+
+<script type="text/javascript" >
+    $(document).ready(function() {
+        $("#myDialog").hide();
+        $("#comment").hide();
+
+    });
+</script>
+
+<script type="text/javascript" language="javascript">
+    function nextquestion(uid){
+        //alert(vid);
+        var state = uid +':'+ $("#id_ca").val();
+        var url = "/cbt/cbt/nextq/{{uid}}/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#comment").html(html);
+                getcomment();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+
+{% endblock %}

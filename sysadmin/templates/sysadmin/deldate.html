@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional/EN">
+<html>
+
+
+<head>
+
+    <title></title>
+
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+<link type="text/css" rel="Stylesheet" href="/static/JS/jquery-ui.css" />
+
+<link rel="stylesheet" type="text/css" href="/static/JS/css/hot-sneaks/jquery-ui-1.8.18.custom.css" />
+
+<script type='text/javascript' src='/static/JS/jquery-ui-1.8.18.custom.min.js'></script>
+</head>
+
+
+<body>
+
+<form action="/controllers/deletedate/{{ getdetails.id }}/" method="post" name ="main" onsubmit="disable(this)">
+
+
+   <table style="margin-top:0%;margin-bottom:0%;" width="100%" class="table  table-bordered" id="dataTables-example">
+        <tr>
+            <td style="background-color:white;width:100%;font-size:0.7em;color:red;font-style:italic;text-align:center">
+                <strong>Press ESC to close  </strong>
+            </td>
+        </tr>
+</table>
+
+
+
+<table style="margin-top:0%;margin-bottom:0%;font-size:0.9em" width="100%" class="table  table-bordered" id="dataTables-example">
+        <tr>
+            <td> Term: </td>
+            <td>{{ getdetails.term }} </td>
+        </tr>
+        <tr>
+            <td>Current Date :</td>
+            <td>{{ getdetails.start_date}}</td>
+        </tr>
+
+                <tr>
+            <td>New Date:</td>
+            <td>{{ form.mydate }}</td>
+        </tr>
+
+</table>
+
+
+ <table style="margin-top:0%;margin-bottom:0%" width="100%" class="table  table-bordered" id="dataTables-example">
+
+
+
+        <tr>
+           <td >
+            <input class="btn btn-lg btn-success btn-block" name="submit" type= "submit" value="Save">
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+</body>
+<script>
+    $(document).ready(function() {
+        var pickerOpts = {
+            //appendText: "mm/dd/yy",
+            //defaultDate: "+5",
+            showOtherMonths: true,
+            changeMonth: true,
+            changeYear: true,
+            dateFormat:"yy-mm-dd"
+            //showButtonPanel: true
+            // showOn: "button"
+        };
+        $("#id_mydate").datepicker(pickerOpts);
+        // $("#id_mydate").focus();
+    });
+    </script>
+
+
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>
+
+
+
+</html>

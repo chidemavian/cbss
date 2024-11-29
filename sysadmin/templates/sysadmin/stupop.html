@@ -1,0 +1,31 @@
+
+
+
+
+<div style="margin-top:02%;margin-bottom:0.2%;text-align:center" >Student population for {{term}}  term, {{session}}  session </div>
+        <table style="margin-top:0%;margin-bottom:0.2%;font-size:0.8em;text-align:center" width="100%" class="table  table-bordered" id="dataTables-example">
+
+<tr style="font-weight:bold">
+<td>S/N</td>
+<td>Class</td>
+<td>Total</td>
+</tr>
+
+
+
+    {% for student in getdetails %}
+        <tr >
+            <td >{{ forloop.counter }}.</td>
+
+           <td >{{ student.klass }}</td>
+
+          <td >{{ student.total }}</td>
+
+
+        </tr>
+    {% endfor %}
+
+<tr  style="font-weight:bold">
+    <td></td>
+<td>Total</td>
+<td>{{total}}</td></tr>

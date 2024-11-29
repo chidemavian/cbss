@@ -1,0 +1,305 @@
+{% extends "assessment/base_cl.htm" %}
+{%block head %}
+    {%block title %}SchApp{%endblock%}
+{%endblock %}
+{%block content%}
+
+
+            <div class="row">
+                <div class="col-lg-12">
+              <h1 class="page-header"><i class="fa fa-edit fa-1x"></i> Subject Scores</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+
+    <table style="margin-top:0%;margin-bottom:0.9%" width="100%" class="table  table-bordered " id="dataTables-example">
+                <!-- <table> -->
+                    <tr>
+                        <td>Session</td>
+                        <td>{{ session }}</td>
+
+                    </tr>
+                    <tr>
+                        <td >Class</td>
+                        <td> {{ klass }}  {{ arm }}</td>
+                    </tr>
+                    <tr>
+                        <td>Subject</td>
+                        <td>{{ subject }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Type</td>
+                        <td>{{ rep }} Report Sheet</td>
+
+                    </tr>
+
+ <!--                    <tr>
+
+                        <td style="color:gray;font-size:15px;padding-left:10px;">Click  <a href="/reportsheet/secondary_print_assessment/{{ session1 }}/{{ klass1 }}/{{ arm1 }}/{{ name1 }}/{{ term1 }}/" style="color:blue;font-size:13px;font-weight:bold;">here </a>to rank students</td>
+                    </tr> -->
+                    
+                </table>
+<!-- 
+    <table width="100%" class="table  table-bordered " id="dataTables-example">
+        <td style='text-align:center;color:grey'>
+
+
+
+        Click  <a href="/reportsheet/secondary_print_assessment/{{ session1 }}/{{ klass1 }}/{{ arm1 }}/{{ subject }}/{{ rep }}/{{term1}}" style="color:blue;font-size:13px;font-weight:bold;">here </a>to rank students
+        </td>
+    </table>
+ -->
+
+
+
+                  <table width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+                <!-- <table style="width:100%;background-color:white;border-collapse:collapse;"> -->
+                    <thead >
+                    <tr style="font-weight:bold;text-align:center">
+                        <td >S/N</td>
+                        <!-- <td >Admission No</td> -->
+                        <td >Name</td>
+                        <td >Mid Term</td>
+                        <td >CA</td>
+                        <td >Exam Score </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in data %}
+                        <tr style="text-align:center">
+                            <td >{{ forloop.counter }}</td>
+                             <td ><a href = "#" style = " color:blue" onclick = "getdialogtry1({{student.id}});">{{ student.fullname }}</a> </td>
+                            <td>
+
+                                {{ student.third_ca }}
+
+
+                            </td>
+
+
+                            <td>
+
+                                {{ student.fourth_ca }}
+
+         <!--              <input style="text-align:center" type="text" name="fourthca" id="fourthca" size="1" value="{{ student.fourth_ca }}"  class ="loginTxtbox"> -->
+
+
+                            </td>
+                            <td>
+                                {{ student.sixth_ca }}
+
+      <!--                <input style="text-align:center" type="text" name="sixthca" id="sixthca" size="1" value="{{ student.sixth_ca }}"> -->
+
+                           </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                   <tr><a href = "/reportsheet/enterca/" style = " color:blue">next</a></tr>
+                </table>
+
+
+  
+    
+    <div id="myDialog" title="Enter Assessment Score"></div>
+
+  
+<script type="text/javascript" >
+            $(document).ready(function() {
+                $("#myDialog").hide();
+            });
+</script>
+<script >
+    function getdialogtrys(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry1(vid){
+        //alert(vid);
+        var state = vid + ':' + "{{ rep}}";
+        var url = "/reportsheet/getsubjectscore1/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry2(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore2/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry3(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore3/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry4(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore4/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+<script >
+    function getdialogtry5(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getsubjectscore5/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+
+
+
+
+    <script type="text/javascript" >
+        $(document).ready(function() {
+            $("#myDialog").hide();
+        });
+    </script>
+    <script type="text/javascript" language="javascript">
+        function getdialogtry(vid){
+            //alert(vid);
+            var state = vid;
+            var url = "/reportsheet/getsubjectscore/";
+            var i = 0;
+            var data='userid='+state;
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:data,
+                success:function(html) {
+                    //$("#myDialog").show();
+                    $("#myDialog").html(html);
+                    getdialog();
+                }
+            });
+            return false;
+        }
+
+    </script>
+    <script type="text/javascript" language="javascript">
+        function getdialog(){
+            var dialogOpts = {
+                autoOpen:true,
+                modal:true,
+                position: ["center", "middle"],
+                // height:450,
+                // width:500,
+                closeOnEscape:true,
+                show: true,
+                hide: true,
+                bgiframe: true
+            };
+            $("#myDialog").dialog(dialogOpts);
+        }
+
+    </script>
+
+
+
+
+
+<script type="text/javascript" language="javascript">
+window.history.pushState(null, "", window.location.href);
+window.onpopstate = function () {
+    window.history.pushState(null, "", window.location.href);
+};
+
+</script>
+
+
+{%endblock%}

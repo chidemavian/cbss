@@ -1,0 +1,216 @@
+{% extends 'assessment/base_cl.htm' %}
+{% block sectionTitle %}{% endblock %}
+{% block content %}
+
+            <div class="row">
+                <div class="col-lg-12">
+              <h1 class="page-header"><i class="fa fa-edit fa-1x"></i> Comments</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+    <table width="100%" class="table  table-bordered  " id="dataTables-example">
+        <tr>
+            <td style="text-align:center;color:white;font-size:1.2em;background-color:#006633">
+                 HOME ROOM REPORTSHEET COMMENT
+            </td>
+        </tr>
+<!--         <tr>
+            <td style="background-color:#ffffff;font-size:13px;color:red;width:100%;font-weight:bold;text-decoration:blink;text-align:center" > {{ varerr }}
+            </td>
+        </tr> -->
+</table>
+
+
+
+
+ <form action="" method="POST">
+            <table width="100%" class="table  table-bordered " id="dataTables-example">
+               
+                   <tr >
+                       <td >Session</td>
+                       <td>{{ form.session }}</td>
+                   </tr>
+                   <tr>
+                       <td >Class</td>
+                       <td>{{ form.klass }}</td>
+                   </tr>
+                   <tr>
+                       <td >Arm</td>
+                       <td>{{ form.arm }}</td>
+                   </tr>
+                   <tr>
+                       <td>Term</td>
+                       <td>{{ form.term }}</td>
+                   </tr>
+                   <tr>
+                       <td >Reportsheet</td>
+                       <td>{{ form.ca }}</td >
+                   </tr>
+               </table>
+               </form>
+            </td>
+
+        </tr>
+    </div>
+
+</table>
+<table width="100%" class="table  table-bordered " id="dataTables-example">
+        
+            <div class="commentbox"></div>
+    
+        
+    </table>
+
+    <!--<div id="regform" style="width: 100%;"></div>-->
+    <script>
+        $(document).ready(function() {
+            var pickerOpts = {
+                //appendText: "mm/dd/yy",
+                //defaultDate: "+5",
+                showOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat:"yy-mm-dd"
+                //showButtonPanel: true
+                // showOn: "button"
+            };
+            getclass();
+           
+
+        });
+    </script>
+
+    
+   <script type="text/javascript" >
+        $(document).ready(function() {
+
+            $("#id_ca").change(function () {
+                autopost2();
+            });
+            $("#id_term").change(function () {
+                autopost2();
+            });
+            $("#id_klass").change(function () {
+                getarm();
+            });
+            
+        });
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function getclass(){
+            var state = $("#id_session").val() ; // i need session to determine my class
+            //alert(state);
+            var url = "/reportsheet/getclassaff/";
+            var i = 0;
+            var data='userid='+state;
+            $("#id_klass").val('');   
+            $("#id_klass").html('');
+            if (state != undefined){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data:data,
+                    success: function(data){
+                        var options = '';
+                        for (i=0; i<data.length; i++){
+                            options += '<option value="' + data[i] +'">' + data[i] + '</option>'
+                        }
+                        $("#id_klass").append(options);
+                         getarm();
+                    
+
+                    }
+                })
+            }
+        }
+
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function getarm(){
+            var state = $("#id_session").val() + ':' + $("#id_klass").val() ;
+                        //alert(state);
+            var url = "/reportsheet/getarmaff/";
+            var i = 0;
+            var data='userid='+state;
+            $("#id_arm").val('');
+            $("#id_arm").html('');
+            if (state != undefined){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data:data,
+                    success: function(data){
+                        var options = '';
+                        for (i=0; i<data.length; i++){
+                            options += '<option value="' + data[i] +'">' + data[i] + '</option>'
+                        }
+                        $("#id_arm").append(options);
+                        getterm();
+                        
+                    }
+                })
+            }
+        }
+
+    </script>
+    
+
+
+
+    <script type="text/javascript" language="javascript">
+        function getterm(){
+            var state = $("#id_session").val() ;
+            //alert(state);
+            var url = "/reportsheet/getterm/";
+            var i = 0;
+            var data='userid='+state;
+            $("#id_term").val('');
+            $("#id_term").html('');
+            if (state != undefined){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data:data,
+                    success: function(data){
+                        var options = '';
+                        for (i=0; i<data.length; i++){
+                            options += '<option value="' + data[i] +'">' + data[i] + '</option>'
+                        }
+                        $("#id_term").append(options);
+                        autopost2();
+                        
+                    }
+                })
+            }
+        }
+
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function autopost2(){
+            var state = $("#id_session").val() + 
+            ':'+ $("#id_klass").val()+
+            ':'+ $("#id_arm").val() +
+            ':'+ $("#id_term").val()+
+            ':'+ $("#id_ca").val();
+            var url = "/reportsheet/stucacom/";
+            var i = 0;
+            var data='userid='+state;
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:data,
+                success:function(html) {
+                    $(".commentbox").show();
+                    $(".commentbox").html(html);
+
+
+                }
+            });
+            return false;
+        }
+    </script>
+{% endblock %}

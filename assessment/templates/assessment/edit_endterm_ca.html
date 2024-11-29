@@ -1,0 +1,130 @@
+<html>
+<head>
+    <title>SchApp 8.0 Enterprise School software{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<form  action="/reportsheet/editcas2both/{{ getdetails.id }}/"
+method="POST" onsubmit="disable(this)">
+
+
+    <table style="margin-top:0.8%;margin-bottom:0%" class="table  table-bordered" id="dataTables-example">
+                   <td style="text-align:center" >
+                        <img style="width:20%; height: 20%;" src="/static/{{ getdetails.academic_rec.student.studentpicture }}" alt="{{ k.studentinfo.fullname  }}">
+                        </td>
+     </table>
+
+
+    <table style="margin-top:0.7%;margin-bottom:0% ; font-size:0.5em"  class="table  table-bordered" id="dataTables-example">
+            <tr>
+                <td style="font-weight:bold;">{{ getdetails.session }} </td>
+            </tr>
+
+            <tr>
+                <td style="font-weight:bold;"> {{ getdetails.academic_rec.student.fullname }}</td>
+
+            </tr>
+
+            <tr>
+                <td style="font-weight:bold;">{{ getdetails.academic_rec.student.admissionno }}</td>
+            </tr>
+</table>
+
+
+
+
+<table style="margin-top:0.7%;margin-bottom:0%; font-size:0.7em"  width="100%" class="table  table-bordered" id="dataTables-example">
+                    <tr>
+                <td style="font-weight:bold;"> Term</td>
+                <td>{{getdetails.term}}({{ak}})</td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold;">  Classroom</td>
+                <td>{{getdetails.klass}}  {{getdetails.arm }}</td>
+            </tr>
+ </table>
+
+      <table style="margin-top:0.7%;margin-bottom:0% ; font-size:0.7em" class="table  table-bordered" id="dataTables-example">
+                <td style="font-weight:bold;"> Subject:</td>
+                <td>{{getdetails.subject }} </td>
+            </table>
+
+
+              <table style="margin-top:0.8%;margin-bottom:0%" class="table  table-bordered table-hover" id="dataTables-example">
+
+                    <tr>
+                        <td >Mid Term</td>
+
+                        <td>
+                            <input style="text-align:center" type="text" name="thirdca" id="thirdca" size="5" value="{{ getdetails.third_ca }}" class ="loginTxtbox">
+                        </td>
+
+
+                                <!-- <td>{{ getdetails.third_ca }}</td> -->
+                      </tr>
+
+                    <tr>
+                        <td style="font-weight:bold;">CA</td>
+                                <td>
+                                    <input style="text-align:center" type="text" name="fourthca" id="fourthca" size="5" value="{{ getdetails.fourth_ca }}" class ="loginTxtbox">
+                                </td>
+                      </tr>
+
+                    <tr>
+                         <td >EXAM </td>
+                        <td>
+                            <input style="text-align:center" type="text" name="sixthca" id="sixthca" size="5" value="{{ getdetails.sixth_ca }}" class ="loginTxtbox">
+                        </td>
+                      </tr>
+
+
+</table>
+
+
+
+
+ <table style="margin-top:0%;margin-bottom:0%" class="table  table-bordered table-hover" id="dataTables-example">
+
+                <td style="text-align:center">
+
+                    <input  align='center' type="submit" value=" Update " name="submit">
+                </td>
+
+</table>
+
+     <tr>
+        <input type="hidden" name="report" id="report" size="15" value="{{ ak }}" class ="loginTxtbox" readonly="readonly">
+
+    </tr>
+
+
+                <td>
+                    <input type="hidden" name="firstca" id="firstca" size="1" value="{{ getdetails.first_ca }}" class ="loginTxtbox">
+                </td>
+
+                <td>
+                    <input type="hidden" name="secondca" id="secondca" size="1" value="{{ getdetails.second_ca }}" class ="loginTxtbox">
+                </td>
+
+
+
+                        <td>
+                            <input type="hidden" name="fifthca" id="fifthca" size="1" value="{{ getdetails.fifth_ca }}" class ="loginTxtbox">
+                        </td>
+
+</form>
+
+</body>
+
+</body>
+</html>
+
+    <script language="javascript" type="text/javascript">
+        function disable(f)
+        {
+            var button = f.elements['submit'];
+            button.value = 'Processing';
+            button.disabled = 'true';
+            return true;
+        }
+    </script>

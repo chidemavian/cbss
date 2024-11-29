@@ -1,0 +1,227 @@
+
+
+
+
+<!-- <body> -->
+
+ 
+<!-- <div>Enter {{ca}} comments for <span style='color:blue'>{{term}} term {{klass}}{{arm}} {{session}} Session </span></div>
+ -->
+
+  <table width="100%" class="table  table-bordered " id="dataTables-example">
+            
+                <tr style='font-weight:bold;text-align:center'>
+                    <td >S/N</td>
+                    <td >Name</td>
+                    <td >Teacher's Comment</td>
+                    <td >Status</td>
+                    <!-- <td >Comment</td> -->
+                    <td >Academic Performance</td>
+                </tr>
+              
+            
+                {% for student in data %}
+                    <tr >
+                        <td style='text-align:center'>{{ forloop.counter }}</td>
+                        <!-- <td >{{ student.comment.student.admissionno }}</td> -->
+                        <td >{{ student.comment.student.fullname }}</td>
+
+                        <!--<td title = "Assess Affective domain for {{student.comment.student.fullname }}">  <a href="#" onClick= "getdialogtry({{ student.affective.id  }});"> Affective</a> </td>
+                        <td  title = "Assess Psychomotive domain for {{student.comment.student.fullname }}"> <a href="#" onClick= "psyco({{ student.psyco.id  }});"> Psychomotor </a> </td> -->
+
+                        <td title = "Enter Comment for {{student.comment.student.fullname }}" ><a href="#" onClick= "comment({{ student.comment.id  }});"> Enter {{student.comment.student.surname }}'s Comment </a> </td>
+                        {% if student.comment.days_absent < 0 %}
+                        <td >Undone </td>
+                        {% else %}
+                        <td >Done </td>
+                        {% endif %}
+
+                        <td title = "View Academic Performance for {{student.comment.student.fullname }}"> <a href="#" onClick= "getdialogtry1({{ student.comment.id  }});">Reportsheet Progress </a> </td>
+                    
+                    </tr>
+
+                {% endfor %}
+            
+            </table>
+
+
+
+<div id="myDialog" title="Enter Affective Skill">
+</div>
+<div id="psychomotor" title="Enter Psychomotor">
+</div>
+<div id="comment" title="Enter Comment">
+</div>
+<div id="academic" title="Student Academic Record">
+</div>
+<script type="text/javascript" >
+    $(document).ready(function() {
+        $("#myDialog").hide();
+        $("#psychomotor").hide();
+        $("#comment").hide();
+        $("#academic").hide();
+    });
+</script>
+
+<script type="text/javascript" language="javascript">
+    function comment(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getstucomment/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#comment").html(html);
+                getcomment();
+            }
+        });
+        return false;
+    }
+
+</script>
+<script type="text/javascript" language="javascript">
+    function getcomment(){
+        var dialogOpts = {
+            autoOpen:true,
+            modal:true,
+            position: ["center", "middle"],
+            // height:"auto",
+            width:"auto",
+            title:"<a>Class Teacher's Comment</a>" ,
+            closeOnEscape:true,
+            show: true,
+            hide: true,
+            bgiframe: true
+        };
+        $("#comment").dialog(dialogOpts);
+    }
+
+</script>
+
+<script type="text/javascript" language="javascript">
+    function getdialogtry1(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getstudentacademic/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#academic").html(html);
+                getdialog1();
+            }
+        });
+        return false;
+    }
+
+</script>
+<script type="text/javascript" language="javascript">
+    function getdialog1(){
+        var dialogOpts = {
+            autoOpen:true,
+            modal:true,
+            position: ["center", "middle"],
+            // height:490,
+            // width:490,
+            title:'<a>SchApp 8.0 | Student Academic Record</a>' ,
+            closeOnEscape:true,
+            show: true,
+            hide: true,
+            bgiframe: true
+        };
+        $("#academic").dialog(dialogOpts);
+    }
+
+</script>
+<!--
+<script type="text/javascript" language="javascript">
+    function getdialogtry(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getaffective/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#myDialog").html(html);
+                getdialog();
+            }
+        });
+        return false;
+    }
+
+</script>
+<script type="text/javascript" language="javascript">
+    function getdialog(){
+        var dialogOpts = {
+            autoOpen:true,
+            modal:true,
+            position: ["center", "middle"],
+            height:"auto",
+            width:410,
+            title:'<a>SchApp 8.0-  Affective Skills Test</a>' ,
+            closeOnEscape:true,
+            show: true,
+            hide: true,
+            bgiframe: true
+        };
+        $("#myDialog").dialog(dialogOpts);
+    }
+
+</script>
+
+<script type="text/javascript" language="javascript">
+    function psyco(vid){
+        //alert(vid);
+        var state = vid;
+        var url = "/reportsheet/getpsyco/";
+        var i = 0;
+        var data='userid='+state;
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:data,
+            success:function(html) {
+                //$("#myDialog").show();
+                $("#psychomotor").html(html);
+                getdialogpsyco();
+            }
+        });
+        return false;
+    }
+
+</script>
+<script type="text/javascript" language="javascript">
+    function getdialogpsyco(){
+        var dialogOpts = {
+            autoOpen:true,
+            modal:true,
+            position: ["center", "middle"],
+            height:450,
+            width:410,
+            title:'<a>SchApp 8.0 Psychomotor Skill Test</a>' ,
+            closeOnEscape:true,
+            show: true,
+            hide: true,
+            bgiframe: true
+        };
+        $("#psychomotor").dialog(dialogOpts);
+    }
+
+</script>
+-->
+<!-- </body> -->
+

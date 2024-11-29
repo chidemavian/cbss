@@ -1,0 +1,115 @@
+
+
+{% extends 'welcome1.html' %}
+{% block sectionTitle %}{% endblock %}
+{% block content %}
+
+
+
+
+
+     <input name="submitprint" type= "submit" value="Print Report" onclick = "openrecprint();">
+
+    <div class="printable">
+    {% for k in st %}
+
+
+  <table style="margin-top:2%;margin-bottom:1%" width="100%" class="table  table-bordered table" id="dataTables-example">
+    <tr >
+      <td style='border:0px solid black'>
+          <img style="width: 7em; height: 7em;" src="/static/school-logo/log.jpeg" alt="{{ k.studentinfo.fullname  }}">
+      </td>
+
+        <td  style="border:0px solid black">
+
+            <table style="margin-top:0%;margin-bottom:0%" >
+              <span style="border:0px solid black;font-weight:bold;text-align:center;font-family:verdana;font-size:2em;">BRIGHT FUTURE COLLEGE </span>
+            </table>
+
+            <table style="font-weight:bold;margin-top:-1%;margin-bottom:2%">
+                <span style="letter-spacing:10.5px;font-size:10.5px;background-color:red;color:white">GOVERNMENT APPROVED </span>
+            </table>
+
+        <table style="margin-top:2%;margin-bottom:0%">
+            <span  style="font-weight:bold;letter-spacing:11px;font-size:11px">WAEC & NECO ACCREDITED</span>
+        </table>
+    </td>
+    </tr>
+</table>
+
+
+ <table style="margin-top:1.6%;margin-bottom:1.2%; text-size:2.2em" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+February 18, 2022
+</table>
+
+ <table style="margin-top:0.4%;margin-bottom:1%; text-size:2.2em" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+<tr>
+
+Dear Mr & Mrs <span style="font-weight:bold">{{k.surname}}</span>,
+</tr>
+
+</table>
+
+ <table style="margin-top:0.5%;margin-bottom:1%;justify:block; fontt-size:2.2em" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+<tr>
+	I write to oficially inform you that changes were made to the way students will now access their results and other valuable confidential personal information on our school portal, owing to a number of security updates recently implemented.
+</tr>
+
+ <table style="margin-top:0.5%;margin-bottom:1%; text-size:2.2em" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+<tr>
+
+ Consequently, your child / ward,  <span style='font-weight:bold'> {{ k.student.fullname}}</span> will now access {{k.gender}} personal data using the following details.
+</tr>
+<br>
+<tr style="font-size:2.2em">
+ <span style='font-weight:bold'>Username:</span> {{k.student.admissionno}}
+ <br>
+ <span style='font-weight:bold'>Password:</span>  {{k.student.surname}}
+ <br>
+</table>
+
+ <table style="margin-top:0.7%;margin-bottom:1%; text-size:2.2em" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+Also, note that students who want to update their profile pages might need to provide the necessary information, using the "Update biodata" link now provided.
+</table>
+
+ <table style="margin-top:0.7%;margin-bottom:1%; text-size:2.2em" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+ Finally,in our bid to integrate you into our portal, we are working on a customized access code for you, details of which will be communicated in due course.
+</table>
+
+
+ <table style="margin-top:1%;margin-bottom:1%; text-size:2.2em" width="100%" class="table  table-bordered table-hover" id="dataTables-example">
+Thank you,
+<br>
+Mr. Babatunde Olushsola
+<br>
+Administrator
+<br>
+</table>
+
+
+{% endfor %}
+
+</div>
+
+
+
+
+
+<!--  -->
+
+    </div>
+
+<script language="javascript" type="text/javascript">
+        function openrecprint()
+        {
+            //alert("welcome");
+            $( ".printable" ).print();
+        }
+</script>
+{% endblock %}
+
+
+
+
+
+

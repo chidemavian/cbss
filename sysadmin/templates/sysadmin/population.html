@@ -1,0 +1,122 @@
+{% extends "sysadmin/base.htm" %}
+{%block head %}
+    {%block title %}{%endblock%}
+{%endblock %}
+{%block content%}
+
+
+
+
+        <div  style="background-color:#ccccc0;border:0px solid black;width:100%;height:30%; font-size:12px;color:mi;text-align:center;"> <strong>SCHOOL POPULATION </strong> </div>
+
+
+        <div  style="color:red;font-family:verdana;font-size:13px;text-decoration:blink;background-color:#ffffff;text-align:center;" > {{varerr}}</div>
+
+
+
+
+    <form action="" method="post" name ="main" onsubmit="disable(this)">
+        <table style="margin-top:0%;margin-bottom:0.2%;font-size:0.8em" width="100%" class="table  table-bordered" id="dataTables-example">
+            <tr>
+                <td>Session</td>
+                <td>{{ form.session}}</td>
+            </tr>
+            <tr>
+                <td>Term</td>
+                <td>{{ form.term}}</td>
+            </tr>
+        </table>
+    </form>
+
+
+
+
+
+<td colspan="20"><div class="ca_box"></div></td>
+
+
+<!--         <table style="margin-top:0%;margin-bottom:0.2%;font-size:0.8em;text-align:center" width="100%" class="table  table-bordered" id="dataTables-example">
+
+<tr style="font-weight:bold">
+<td>S/N</td>
+<td>Class</td>
+<td>Total</td>
+</tr>
+
+
+
+    {% for student in getdetails %}
+        <tr style="font-weight:bod;text-align:center">
+            <td >{{ forloop.counter }}.</td>
+
+           <td >{{ student.klass }}</td>
+
+          <td >{{ student.total }}</td>
+
+
+        </tr>
+    {% endfor %}
+
+<tr>
+    <td></td>
+<td>Total</td>
+<td>{{total}}</td></tr> -->
+
+
+
+
+
+    <div id="myDialog" title="Edit Principal"> </div>
+
+
+
+    <script>
+        $(document).ready(function() {
+            var pickerOpts = {
+                //appendText: "mm/dd/yy",
+                //defaultDate: "+5",
+                showOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat:"yy-mm-dd"
+            };
+
+            autopost2();
+        });
+    </script>
+
+   <script type="text/javascript" >
+        $(document).ready(function() {
+
+            $("#id_term").change(function () {
+                autopost2();
+            });
+
+        });
+    </script>
+
+
+
+    <script type="text/javascript" language="javascript">
+        function autopost2(){
+            var state = $("#id_session").val() + ':'+  $("#id_term").val();
+            // alert(state);
+
+            var url = "/sysadmin/population/schcount/";
+            var i = 0;
+            var data='userid='+state;
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:data,
+                success:function(html) {
+                    $(".ca_box").show();
+                    $(".ca_box").html(html);
+
+                }
+            });
+            return false;
+        }
+    </script>
+
+{%endblock%}
